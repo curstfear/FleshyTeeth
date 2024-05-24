@@ -7,6 +7,7 @@ public class CharacterCollision : MonoBehaviour
     public CharacterHealth _characterHealth;
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //столкновение с шипом
         if(collision.gameObject.tag == "Spike")
         {
             _characterHealth.TakeDamage(10f);

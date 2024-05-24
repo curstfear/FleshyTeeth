@@ -21,12 +21,14 @@ public class CharacterLogic : MonoBehaviour
         Movement();
     }
 
+    //передвижение
     private void Movement()
     {
         Vector2 inputVector = GetMovementVector();
         _rigidBody.MovePosition(_rigidBody.position + inputVector * (_speed * Time.fixedDeltaTime));
     }
 
+    //получение вектора движения
     private Vector2 GetMovementVector()
     {
         Vector2 inputVector = _characterInputActions.Character.Movement.ReadValue<Vector2>();

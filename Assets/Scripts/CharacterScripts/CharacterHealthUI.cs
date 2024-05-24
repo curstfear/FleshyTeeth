@@ -8,11 +8,13 @@ public class CharacterHealthUI : MonoBehaviour
     public CharacterHealth _characterHealth;
     [SerializeField] private Image _characterHealthBar;
 
+    //инициализация хп бара
     private void Start()
     {
         UpdateHealthBar();
     }
 
+    // вычисление соотношения текущего здоровья персонажа к максимальному и вывод в UI
     public void UpdateHealthBar()
     {
         float characterHealthRatio = (float)_characterHealth.GetCurrentHealth() / _characterHealth._characterMaxHealth;

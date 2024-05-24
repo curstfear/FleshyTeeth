@@ -9,11 +9,7 @@ public class CharacterHealth : MonoBehaviour
     
     public CharacterHealthUI _characterHealthUI;
 
-    private void Start()
-    {
-        _characterHealthUI.UpdateHealthBar();
-    }
-
+    // метод получения урона
     public void TakeDamage(float damage)
     {
         _characterHealth -= damage;
@@ -21,6 +17,7 @@ public class CharacterHealth : MonoBehaviour
         _characterHealthUI.UpdateHealthBar();
     }
 
+    // метод лечения
     public void Heal(float amount)
     {
         _characterHealth += amount;
@@ -28,11 +25,13 @@ public class CharacterHealth : MonoBehaviour
         _characterHealthUI.UpdateHealthBar();
     }
     
+    // смерть игрока
     private void Die()
     {
         Debug.Log("Die");
     }
 
+    //получение текущего здоровья
     public float GetCurrentHealth()
     {
         return _characterHealth;
