@@ -7,11 +7,19 @@ public class CharacterHealthUI : MonoBehaviour
 {
     public CharacterHealth _characterHealth;
     [SerializeField] private Image _characterHealthBar;
+    public Animator heartBeats;
+
 
     //инициализация хп бара
     private void Start()
     {
+        heartBeats = GetComponent<Animator>();
         UpdateHealthBar();
+    }
+
+    private void Update()
+    {
+        HeartBeatsControl();
     }
 
     // вычисление соотношения текущего здоровья персонажа к максимальному и вывод в UI
@@ -19,6 +27,30 @@ public class CharacterHealthUI : MonoBehaviour
     {
         float characterHealthRatio = (float)_characterHealth.GetCurrentHealth() / _characterHealth._characterMaxHealth;
         _characterHealthBar.fillAmount = characterHealthRatio;
+    }
+
+    private void HeartBeatsControl()
+    {
+        //если у игрока 25% здоровья
+        if (_characterHealth.GetCurrentHealth() <= (_characterHealth._characterMaxHealth * 0.25f))
+        {
+            heartBeats.SetBool("isBeatsSlow", false);
+            heartBeats.SetBool("isBeatsFast", true);
+        }
+
+        //если у игрока 50% здоровья
+        else if (_characterHealth.GetCurrentHealth() <= (_characterHealth._characterMaxHealth * 0.5f))
+        {
+            heartBeats.SetBool("isBeatsFast", false);
+            heartBeats.SetBool("isBeatsSlow", true);
+        }
+
+        //если у игрока больше 50%
+        else
+        {
+            heartBeats.SetBool("isBeatsSlow", false);
+            heartBeats.SetBool("isBeatsFast", false);
+        }
     }
 
 }
