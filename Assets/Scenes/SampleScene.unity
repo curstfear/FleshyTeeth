@@ -181,7 +181,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -359,8 +359,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.99993896, y: 2.999939}
-  m_SizeDelta: {x: 40.03, y: 2.54}
+  m_AnchoredPosition: {x: -0.9998779, y: 2.999939}
+  m_SizeDelta: {x: 40.03, y: 2.540001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &193494820
 MonoBehaviour:
@@ -569,11 +569,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 10
   m_ScaleFactor: 0.01
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.536
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -870,11 +870,11 @@ RectTransform:
   - {fileID: 193494819}
   m_Father: {fileID: 258773398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -900, y: 340}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100, y: -200}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!95 &1020430631
 Animator:
   serializedVersion: 5
@@ -1175,8 +1175,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.99993896, y: 2.999939}
-  m_SizeDelta: {x: 40.03, y: 2.54}
+  m_AnchoredPosition: {x: -0.9998779, y: 2.9999695}
+  m_SizeDelta: {x: 40.03, y: 2.540001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1712954188
 MonoBehaviour:
@@ -1634,6 +1634,6 @@ SceneRoots:
   - {fileID: 1236568340}
   - {fileID: 19388585}
   - {fileID: 1427916467}
-  - {fileID: 258773398}
   - {fileID: 1206646666}
   - {fileID: 272794024}
+  - {fileID: 258773398}
