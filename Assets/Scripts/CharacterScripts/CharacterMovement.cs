@@ -26,6 +26,10 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 inputVector = GetMovementVector();
         _rigidBody.MovePosition(_rigidBody.position + inputVector * (_speed * Time.fixedDeltaTime));
+        if(inputVector.x != 0)
+        {
+            transform.localScale = new Vector2(Mathf.Sign(inputVector.x), 1);
+        }
     }
 
     //получение вектора движения

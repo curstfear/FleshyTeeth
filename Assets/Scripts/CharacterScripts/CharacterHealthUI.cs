@@ -27,6 +27,7 @@ public class CharacterHealthUI : MonoBehaviour
     {
         float characterHealthRatio = (float)_characterHealth.GetCurrentHealth() / _characterHealth._characterMaxHealth;
         _characterHealthBar.fillAmount = characterHealthRatio;
+        Debug.Log(_characterHealth._characterHealth.ToString());
     }
 
     private void HeartBeatsControl()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,14 +11,17 @@ public class MeatSticks : MonoBehaviour
     [SerializeField] private int MeatHeal = 15;
     private bool _isNear;
 
+    private GameObject Character;
     public CharacterHealth _characterHealth;
-    public GameObject _hint;
-    public Text _hintText;
-    public CharacterInputActions _inputActions;
     public InputActionReference inputActionValue;
+    public CharacterInputActions _inputActions;
+    public GameObject _hint;
+    public TMP_Text _hintText;
 
     private void Awake()
     {
+        Character = GameObject.Find("Character");
+        _characterHealth = Character.GetComponent<CharacterHealth>();
         _inputActions = new CharacterInputActions();
     }
 
