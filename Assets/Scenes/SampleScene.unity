@@ -1306,7 +1306,7 @@ Camera:
   far clip plane: 1000
   field of view: 1.4312181
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 8
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_Follow: {fileID: 19388585}
   m_Lens:
     FieldOfView: 1.4312181
-    OrthographicSize: 7
+    OrthographicSize: 8
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1959,6 +1959,14 @@ PrefabInstance:
     - target: {fileID: 405285428342233695, guid: 258e72aa7d97b1b458f7f6f5f1fb1569, type: 3}
       propertyPath: m_Name
       value: MeatRedStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634668026325630218, guid: 258e72aa7d97b1b458f7f6f5f1fb1569, type: 3}
+      propertyPath: _isGreenMeat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634668026325630218, guid: 258e72aa7d97b1b458f7f6f5f1fb1569, type: 3}
+      propertyPath: GreenMeatHeal
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6457244943985820880, guid: 258e72aa7d97b1b458f7f6f5f1fb1569, type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,15 +9,15 @@ using UnityEngine.UI;
 
 public class MeatSticks : MonoBehaviour
 {
-    [SerializeField] private int MeatHeal = 15;
-    private bool _isNear;
+    [SerializeField] private int MeatHeal = 15; //сколько восстанавливает здоровья мясо
+    private bool _isNear; //логическая переменная - рядом или нет
 
     private GameObject Character;
-    public CharacterHealth _characterHealth;
-    public InputActionReference inputActionValue;
-    public CharacterInputActions _inputActions;
-    public GameObject _hint;
-    public TMP_Text _hintText;
+    public CharacterHealth _characterHealth; //ссылка на класс CharacterHealth
+    public InputActionReference inputActionValue; 
+    public CharacterInputActions _inputActions; //ссылка на пакет InputManager
+    public GameObject _hint; //объект "подсказка"
+    public TMP_Text _hintText; // текст подсказки
 
     private void Awake()
     {
@@ -28,18 +29,18 @@ public class MeatSticks : MonoBehaviour
     private void OnEnable()
     {
         _inputActions.Character.Enable();
-        _inputActions.Character.UseItem.performed += Use;
-        string inputName = inputActionValue.action.GetBindingDisplayString(0);
-        _hintText.text = inputName.ToString();
+        _inputActions.Character.UseItem.performed += UseMeat;
+        string inputName = inputActionValue.action.GetBindingDisplayString(0); //получение значения клавиши, указанного в InputMap
+        _hintText.text = inputName.ToString(); //передача этого значения в текст
     }
 
+    //когда персонаж входит в триггерную зону предмета (мясо)
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Character"))
         {
             _isNear = true;
-            _hint.SetActive(true);
-       
+            _hint.SetActive(true); // включается подсказка
         }
     }
 
@@ -52,11 +53,13 @@ public class MeatSticks : MonoBehaviour
         }
     }
 
-    void Use(InputAction.CallbackContext context)
+    // использование мясной колбы или красной мясной палочки
+    void UseMeat(InputAction.CallbackContext context)
     {
         if (_isNear)
         {
-            if (_characterHealth._characterHealth < 100)
+            //при условии, что здоровье персонажа меньше максимального здоровья
+            if (_characterHealth._characterHealth < _characterHealth._characterMaxHealth)
             {
                 _characterHealth.Heal(MeatHeal);
                 Destroy(gameObject);
