@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class Character : MonoBehaviour
 {
+    public static Character Instance { get; private set; }
     [SerializeField] private float _speed = 7f;
     private CharacterInputActions _characterInputActions;
 
@@ -14,6 +15,15 @@ public class CharacterMovement : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
         _characterInputActions = new CharacterInputActions();
         _characterInputActions.Enable();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("More than one Character instance found!");
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
