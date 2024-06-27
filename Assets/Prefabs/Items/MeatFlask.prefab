@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MeatHeal: 30
+  _useParicle: {fileID: 5154677875300692641, guid: af9e8e05afb78994bae9b0f6c0f717d5, type: 3}
   _characterHealth: {fileID: 0}
   inputActionValue: {fileID: -5542444576039417907, guid: dfdcb28908d38804c84bede4d19eb93e, type: 3}
   _hint: {fileID: 1785463933584469339}

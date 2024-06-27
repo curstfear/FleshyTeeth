@@ -20,12 +20,18 @@ public class EnemyAI : MonoBehaviour
     private float _chasingSpeed;
     [SerializeField] private float _chasingSpeedMultiplayer = 1.5f; //ускорение NPC при преследовании
 
+    private float _nextCheckDirectionTime = 0f; //следующая проверка в каком направлении повернут NPC
+    private float _checkDirectionDuration = 0.05f; //сколько раз будет проверятся в каком направлении повернут NPC (0.05f = 5 раз в секунду)
+    private Vector3 _lastPosition; // последнее положение NPC;
+
+    private SpriteRenderer _enemySpriteRenderer;
     private NavMeshAgent _navMeshAgent;
 
     private enum State
     {
         Roaming,
         Chasing,
+        Attacking,
         Death
     }
 
@@ -37,13 +43,15 @@ public class EnemyAI : MonoBehaviour
         _currentState = _startState;
         _roamingSpeed = _navMeshAgent.speed;
         _chasingSpeed = _navMeshAgent.speed * _chasingSpeedMultiplayer;
+        _enemySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
         StateHandler();
+        MovementDirection();
     }
-    
+
     //машина состояний
     private void StateHandler()
     {
@@ -70,16 +78,17 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+
+
+    //получение текущего состояния
     private void CheckCurrentState()
     {
         float distanceToCharacter = Vector3.Distance(transform.position, Character.Instance.transform.position); // дистанция до игрока
-        Debug.Log($"Distance to Character: {distanceToCharacter}");
         State newState = State.Roaming;
 
         if (_isChasingEnemy && distanceToCharacter <= _chasingDistance) // если NPC преследующий и расстояние до игрока меньше или равно дистанции для преследования, то
         {
             newState = State.Chasing;
-            Debug.Log("Switching to Chasing State");
         }
 
         if (newState != _currentState)
@@ -88,16 +97,19 @@ public class EnemyAI : MonoBehaviour
             {
                 _navMeshAgent.ResetPath();
                 _navMeshAgent.speed = _chasingSpeed;
+                if(gameObject.tag == "Ghost") ChangeColor("red");
             }
             else if (newState == State.Roaming)
             {
                 _roamingTimer = 0f;
                 _navMeshAgent.speed = _roamingSpeed;
+                if (gameObject.tag == "Ghost") ChangeColor("white");
             }
             _currentState = newState;
         }
     }
 
+    //преследование игрока
     private void ChasingCharacter()
     {
         Vector3 _characterChaseTarget = Character.Instance.transform.position; // где находится персонаж в пространстве
@@ -105,24 +117,37 @@ public class EnemyAI : MonoBehaviour
         ChangeFaceDirection(_startPosition, _characterChaseTarget);
     }
 
+    //брождение 
     private void Roaming()
     {
         _startPosition = transform.position;
         _roamingPosition = GetRoamingPosition();
-        ChangeFaceDirection(_startPosition, _roamingPosition);
         _navMeshAgent.SetDestination(_roamingPosition);
     }
 
+    //получение точки, в которую надо идти NPC при состоянии брождения
     private Vector3 GetRoamingPosition()
     {
         return _startPosition + GetRandomDirection() * UnityEngine.Random.Range(_roamingDistanceMin, _roamingDistanceMax);
     }
 
-    private Vector3 GetRandomDirection()
+    private void MovementDirection()
     {
-        return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-    }
+        if (Time.time > _nextCheckDirectionTime)
+        {
+            if (_currentState == State.Roaming)
+            {
+                ChangeFaceDirection(_lastPosition, transform.position);
+            }
+            else if (_currentState == State.Attacking)
+            {
+                ChangeFaceDirection(transform.position, Character.Instance.transform.position);
+            }
 
+            _lastPosition = transform.position;
+            _nextCheckDirectionTime = Time.time + _checkDirectionDuration;
+        }
+    }
     private void ChangeFaceDirection(Vector3 sourcePosition, Vector3 targetPosition)
     {
         if (sourcePosition.x < targetPosition.x)
@@ -132,6 +157,28 @@ public class EnemyAI : MonoBehaviour
         else
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+    //получение рандомного направления
+    private Vector3 GetRandomDirection()
+    {
+        return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+    }
+    // смена цвета
+    private void ChangeColor(string color)
+    {
+        Color red = new Color(1, 0, 0, 0.5f);
+        Color white = new Color(1, 1, 1, 0.5f);
+        if (_enemySpriteRenderer != null)
+        {
+            if (color == "red")
+            {
+                _enemySpriteRenderer.color = red;
+            }
+            else if (color == "white")
+            {
+                _enemySpriteRenderer.color = white;
+            }
         }
     }
 }

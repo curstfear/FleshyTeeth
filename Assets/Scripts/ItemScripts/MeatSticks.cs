@@ -12,6 +12,7 @@ public class MeatSticks : MonoBehaviour
     [SerializeField] private int MeatHeal = 15; //сколько восстанавливает здоровья мясо
     private bool _isNear; //логическая переменная - рядом или нет
 
+    public ParticleSystem _useParicle; // партикл использования предмета
     private GameObject Character;
     public CharacterHealth _characterHealth; //ссылка на класс CharacterHealth
     public InputActionReference inputActionValue; 
@@ -61,6 +62,8 @@ public class MeatSticks : MonoBehaviour
             //при условии, что здоровье персонажа меньше максимального здоровья
             if (_characterHealth._characterHealth < _characterHealth._characterMaxHealth)
             {
+                ParticleSystem particles = Instantiate(_useParicle, transform.position, Quaternion.identity);
+                particles.Play();
                 _characterHealth.Heal(MeatHeal);
                 Destroy(gameObject);
             }
