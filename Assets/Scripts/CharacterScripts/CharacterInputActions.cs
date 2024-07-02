@@ -44,6 +44,15 @@ public partial class @CharacterInputActions: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Overclocking(Skill)"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4a0b799-40ab-464d-8b3b-f196299eec77"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -123,6 +132,17 @@ public partial class @CharacterInputActions: IInputActionCollection2, IDisposabl
                     ""action"": ""UseItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc7c54e2-c07e-4f55-bfcb-c36a300ef233"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Overclocking(Skill)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -133,6 +153,7 @@ public partial class @CharacterInputActions: IInputActionCollection2, IDisposabl
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
         m_Character_Movement = m_Character.FindAction("Movement", throwIfNotFound: true);
         m_Character_UseItem = m_Character.FindAction("UseItem", throwIfNotFound: true);
+        m_Character_OverclockingSkill = m_Character.FindAction("Overclocking(Skill)", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -196,12 +217,14 @@ public partial class @CharacterInputActions: IInputActionCollection2, IDisposabl
     private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
     private readonly InputAction m_Character_Movement;
     private readonly InputAction m_Character_UseItem;
+    private readonly InputAction m_Character_OverclockingSkill;
     public struct CharacterActions
     {
         private @CharacterInputActions m_Wrapper;
         public CharacterActions(@CharacterInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Character_Movement;
         public InputAction @UseItem => m_Wrapper.m_Character_UseItem;
+        public InputAction @OverclockingSkill => m_Wrapper.m_Character_OverclockingSkill;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -217,6 +240,9 @@ public partial class @CharacterInputActions: IInputActionCollection2, IDisposabl
             @UseItem.started += instance.OnUseItem;
             @UseItem.performed += instance.OnUseItem;
             @UseItem.canceled += instance.OnUseItem;
+            @OverclockingSkill.started += instance.OnOverclockingSkill;
+            @OverclockingSkill.performed += instance.OnOverclockingSkill;
+            @OverclockingSkill.canceled += instance.OnOverclockingSkill;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -227,6 +253,9 @@ public partial class @CharacterInputActions: IInputActionCollection2, IDisposabl
             @UseItem.started -= instance.OnUseItem;
             @UseItem.performed -= instance.OnUseItem;
             @UseItem.canceled -= instance.OnUseItem;
+            @OverclockingSkill.started -= instance.OnOverclockingSkill;
+            @OverclockingSkill.performed -= instance.OnOverclockingSkill;
+            @OverclockingSkill.canceled -= instance.OnOverclockingSkill;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -248,5 +277,6 @@ public partial class @CharacterInputActions: IInputActionCollection2, IDisposabl
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnUseItem(InputAction.CallbackContext context);
+        void OnOverclockingSkill(InputAction.CallbackContext context);
     }
 }

@@ -43,7 +43,7 @@ public class Character : MonoBehaviour
     }
 
     //получение вектора движения
-    private Vector2 GetMovementVector()
+    public Vector2 GetMovementVector()
     {
         Vector2 inputVector = _characterInputActions.Character.Movement.ReadValue<Vector2>();
         return inputVector;
